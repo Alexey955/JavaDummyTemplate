@@ -1,0 +1,7 @@
+{
+	"root": {
+		"name": "Body_getSessionService_debug",
+		"extension": ".txt",
+		"type": "file"
+	}
+}

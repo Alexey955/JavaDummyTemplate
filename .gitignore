@@ -1,0 +1,6 @@
+.git/
+.idea/
+logs/
+out/
+target/
+1477_PAYM_REST.iml
