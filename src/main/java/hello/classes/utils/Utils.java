@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -14,8 +15,11 @@ import java.time.Instant;
 import java.util.*;
 
 import hello.classes.elements.RequestAsync;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
@@ -85,20 +89,51 @@ public class Utils {
     }
 
     //наполнение объекта RequestAsync для запроса
-    public static void fillRequestAsync(RequestAsync requestAsyncLog, String body, HttpPost httpPost, String uuid){
+    public static void fillRequestAsync(RequestAsync requestAsyncLog, String body, HttpRequestBase httpRequestBase, String uuid){
         requestAsyncLog.setId(uuid);
         requestAsyncLog.setDateTime(Instant.now());
         requestAsyncLog.setDirection("Request");
-        requestAsyncLog.setMethod(httpPost.getMethod());
-        requestAsyncLog.setUrl(String.valueOf(httpPost.getURI()).replace("http:/", "").replace("https:/", ""));
+        requestAsyncLog.setMethod(httpRequestBase.getMethod());
+        requestAsyncLog.setUrl(String.valueOf(httpRequestBase.getURI()).replace("http:/", "").replace("https:/", ""));
 
         //Добавление списка заголовков
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < httpPost.getAllHeaders().length; i++){
-            stringBuilder.append(httpPost.getAllHeaders()[i] + "; ");
+        for (int i = 0; i < httpRequestBase.getAllHeaders().length; i++){
+            stringBuilder.append(httpRequestBase.getAllHeaders()[i] + "; ");
         }
         requestAsyncLog.setHeaders(stringBuilder.toString());
         requestAsyncLog.setBody(body);
+    }
+
+    //наполнение объекта RequestAsync для запроса
+    public static void fillResponseAsync(RequestAsync requestAsyncLog, HttpRequestBase httpRequestBase, HttpResponse httpResponse, String uuid) {
+        requestAsyncLog.setId(uuid);
+        requestAsyncLog.setDateTime(Instant.now());
+        requestAsyncLog.setDirection("Response");
+        requestAsyncLog.setMethod("---");
+        requestAsyncLog.setUrl(String.valueOf(httpRequestBase.getURI()).replace("http:/", "").replace("https:/", ""));
+
+        //Добавление списка заголовков
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < httpResponse.getAllHeaders().length; i++){
+            stringBuilder.append(httpResponse.getAllHeaders()[i] + "; ");
+        }
+        requestAsyncLog.setHeaders(stringBuilder.toString());
+
+        String bodyStr = null;
+        try {
+            InputStream inputStream = httpResponse.getEntity().getContent();
+            for(int i = 0; i < httpResponse.getEntity().getContentLength(); i++){
+                bodyStr += (char) inputStream.read();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(bodyStr != null){
+            requestAsyncLog.setBody(bodyStr);
+        }else {
+            requestAsyncLog.setBody(null);
+        }
     }
 
     //запись в файл
@@ -155,6 +190,19 @@ public class Utils {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    //Отправка Get запроса
+    public static HttpResponse sendGetRequest(HttpGet httpGet, HttpClient httpClient) {
+        HttpResponse httpResponse = null;
+        try {
+            httpGet.getRequestLine();
+
+            httpResponse = httpClient.execute(httpGet);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return httpResponse;
     }
 
     public static void setHeaderFromFile(String fileName, HttpServletResponse response){

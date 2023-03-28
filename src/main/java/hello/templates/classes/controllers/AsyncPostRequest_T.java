@@ -44,6 +44,7 @@ public class AsyncPostRequest_T {
 //                HttpPost httpPost = new HttpPost("http://localhost:8080/session/123/123");
 
 //                Добавляем headers для запроса
+//                httpPost.setHeader("Content-type", "text/plain");
 //                httpPost.setHeader("Content-Type", "application/json;charset=utf-8");
 //                httpPost.setHeader("Content-Type", "text/xml;charset=utf-8");
 

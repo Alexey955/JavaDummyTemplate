@@ -20,7 +20,7 @@ public class DebugController {
 //        Debug; наполнение объекта Request для запроса и записываем в файл
         Request requestLog = new Request();
         fillRequest(requestLog, request, headers, "true", body);
-        printLogs("./Dummy_logs/logs.txt", requestLog.toString());
+        printLogs("./logs/logs.txt", requestLog.toString());
 
 //        Пауза
 //        pause(5000);
@@ -34,7 +34,7 @@ public class DebugController {
 //        Debug; наполнение объекта Request для ответа и записываем в файл
         Request responseLog = new Request();
         fillResponse(responseLog, requestLog, response, "true", bodyStr);
-        printLogs("./Dummy_logs/logs.txt", responseLog.toString());
+        printLogs("./logs/logs.txt", responseLog.toString());
 
         return null;
     }
