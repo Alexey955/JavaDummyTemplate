@@ -2,7 +2,7 @@ package hello.templates.classes.bodies.SOAP;
 
 public class System_num_bodies_T {
 
-    public String getBodyGetNotificationSMS(){
+    public String getBodyMethod(){
         return  "<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\">"+
                 "	<SOAP-ENV:Header/>"+
                 "	<SOAP-ENV:Body>"+

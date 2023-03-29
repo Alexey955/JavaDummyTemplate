@@ -1,10 +1,11 @@
-package hello.classes.elements;
+package hello.classes.dtos;
 
 public class StringToInfluxDB {
     private String method = null;
     private String timestamp = null;
 
-    public StringToInfluxDB(){}
+    public StringToInfluxDB() {
+    }
 
     public String getMethod() {
         return method;

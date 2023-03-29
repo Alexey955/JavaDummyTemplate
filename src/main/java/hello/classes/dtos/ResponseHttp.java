@@ -1,8 +1,8 @@
-package hello.classes.elements;
+package hello.classes.dtos;
 
 import java.time.Instant;
 
-public class Request {
+public class ResponseHttp {
     private String id = null;
     private Instant dateTime = null;
     private String direction = null;
@@ -12,13 +12,13 @@ public class Request {
     private String body = null;
     private String status = "---";
     private float responseTime = 0;
-    private String debug_flag = null;
+    private boolean debug_flag = false;
 
-    public String isDebug_flag() {
+    public boolean isDebug_flag() {
         return debug_flag;
     }
 
-    public void setDebug_flag(String debug_flag) {
+    public void setDebug_flag(boolean debug_flag) {
         this.debug_flag = debug_flag;
     }
 
@@ -38,7 +38,8 @@ public class Request {
         this.status = status;
     }
 
-    public Request (){}
+    public ResponseHttp() {
+    }
 
     public String getId() {
         return id;

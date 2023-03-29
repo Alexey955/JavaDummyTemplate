@@ -1,40 +1,43 @@
 package hello.templates.classes.controllers;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.util.Map;
 
+import static hello.classes.utils.Utils.*;
+
 //@RestController
 public class AsyncPostRequest_T {
 
-//    Экземпляр класса с body
-//    private Session_data_1408_bodies session_data_1408_bodies = new Session_data_1408_bodies();
+    //    Экземпляр класса с body
+//    private System_num_bodies_T_Json bodies = new System_num_bodies_T_Json();
 
     @GetMapping("/http-request/post")
     public void sendAsyncPostRequest(HttpServletRequest request, HttpServletResponse response,
-                                @RequestHeader Map<String, String> headers, @RequestBody(required = false) String body){
+                                     @RequestHeader Map<String, String> headers, @RequestBody(required = false) String body){
 
-//        Debug; наполнение объекта Request для запроса и записываем в файл
-//        Request requestLog = new Request();
-//        fillRequest(requestLog, request, headers, "false", body);
-//        printLogs("./logs/logs.txt", requestLog.toString());
+//        Debug; наполнение объекта RequestRestController и запись в файл
+//        String logsPath = "./logs/logs.txt";
+//        RequestRestController requestRestController = printLogsRequestRestController(logsPath, request, headers, "false", body);
 
 //        Задержка для /http-request/post
 //        pause(30); //Из логов
 
-        //Отправляем асинхронный ответ
+        //Отправляем асинхронный запрос
 //        new Thread() {
 //            @Override
 //            public void run() {
 
 //                Получаем body для запроса
-//                String bodyStr = session_data_1408_bodies.getBodyGetSession();
+//                String requestBody = bodies.getBodyMethod();
 
 //                Debug; Добавляем body для ответа
-//                String bodyStr = getBodyFromFile("./Templates/Bodies/Body_sendAsyncPostRequest_debug.txt");
+//                String requestBody = getBodyFromFile("./Templates/Bodies/Body_sendAsyncPostRequest_debug.txt");
 
 //                Указываем URL для запроса
 //                HttpClient httpClient = new DefaultHttpClient();
@@ -51,21 +54,20 @@ public class AsyncPostRequest_T {
 //                Задержка для http://localhost:8080/session/123/123
 //                pause(30); //Из логов
 
-//                Отправляем запрос
-//                Utils.sendPostRequest(httpPost, httpClient, bodyStr);
+//                Debug; наполнение объекта RequestAsync и запись в файл
+//                printLogsRequestHttp(logsPath, requestBody, httpPost, requestRestController.getId());
 
-//                Debug; наполнение объекта RequestAsync для ответа и записываем в файл
-//                RequestAsync requestAsyncLog = new RequestAsync();
-//                fillRequestAsync(requestAsyncLog, bodyStr, httpPost, requestLog.getId());
-//                printLogs("./logs/logs.txt", requestAsyncLog.toString());
+//                Отправляем запрос
+//                HttpResponse httpResponse = sendPostRequest(httpPost, httpClient, requestBody);
+
+//                Debug; наполнение объекта ResponseHttp и запись в файл
+//                printLogsResponseHttp(logsPath, httpPost, httpResponse, requestRestController.getId());
 
 //                stop();
 //            }
 //        }.start();
 
-//        Debug; наполнение объекта Request для ответа и записываем в файл
-//        Request responseLog = new Request();
-//        fillResponse(responseLog, requestLog, response, "false", null);
-//        printLogs("./logs/logs.txt", responseLog.toString());
+//        Debug; наполнение объекта ResponseRestController и запись в файл
+//        printLogsResponseRestController(logsPath, requestRestController, response, "false", null);
     }
 }

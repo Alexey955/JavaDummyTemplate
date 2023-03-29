@@ -1,11 +1,11 @@
-package hello.classes.elements;
+package hello.classes.dtos;
 
 import java.time.Instant;
 
-public class RequestAsync {
+public class RequestHttp {
     private String id = null;
     private Instant dateTime = null;
-    private String direction = null;
+    private String direction = "Request";
     private String method = null;
     private String url = null;
     private String headers = null;
@@ -30,15 +30,8 @@ public class RequestAsync {
         this.responseTime = responseTime;
     }
 
-    public String getStatus() {
-        return status;
+    public RequestHttp() {
     }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public RequestAsync (){}
 
     public String getId() {
         return id;
@@ -54,14 +47,6 @@ public class RequestAsync {
 
     public void setDateTime(Instant dateTime) {
         this.dateTime = dateTime;
-    }
-
-    public String getDirection() {
-        return direction;
-    }
-
-    public void setDirection(String direction) {
-        this.direction = direction;
     }
 
     public String getMethod() {
