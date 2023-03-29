@@ -1,5 +1,6 @@
 package hello.templates.classes.controllers;
 
+import hello.classes.dtos.RequestRestController;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,11 +22,11 @@ public class PostMapping_T {
                                     @PathVariable String serviceId) {
 
 //        Debug; наполнение объекта RequestRestController и запись в файл
-//        String logsPath = "./logs/logs.txt";
-//        RequestRestController requestRestController = printLogsRequestRestController(logsPath, request, headers, "false", body);
+        String logsPath = "./logs/logs.txt";
+        RequestRestController requestRestController = printLogsRequestRestController(logsPath, request, headers, "false", body);
 
 //        Добавляем headers для ответа
-//        response.setHeader("Content-Type", "application/json;charset=utf-8");
+        response.setHeader("Content-Type", "application/json;charset=utf-8");
 //        response.setHeader("Content-Type", "text/xml;charset=utf-8");
 
 //        Debug; Добавляем headers для ответа

@@ -1,5 +1,10 @@
 package hello.templates.classes.controllers;
 
+import hello.classes.dtos.RequestRestController;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -19,26 +24,26 @@ public class AsyncGetRequest_T {
                                     @RequestHeader Map<String, String> headers, @RequestBody(required = false) String body){
 
 //        Debug; наполнение объекта RequestRestController и запись в файл
-//        String logsPath = "./logs/logs.txt";
-//        RequestRestController requestRestController = printLogsRequestRestController(logsPath, request, headers, "false", body);
+        String logsPath = "./logs/logs.txt";
+        RequestRestController requestRestController = printLogsRequestRestController(logsPath, request, headers, "false", body);
 
 //        Задержка для /http-request/post
 //        pause(30); //Из логов
 
 //        Отправляем асинхронный запрос
-//        new Thread() {
-//            @Override
-//            public void run() {
+        new Thread() {
+            @Override
+            public void run() {
 
 //                Указываем URL для запроса
-//                HttpClient httpClient = new DefaultHttpClient();
+                HttpClient httpClient = new DefaultHttpClient();
 //                HttpGet httpGet = new HttpGet("http://localhost:8080/session/123/123");
 
 //                Debug; указываем URL для запроса
-//                HttpGet httpGet = new HttpGet("http://localhost:8080/session/123/123");
+                HttpGet httpGet = new HttpGet("http://localhost:8080/session/123/123");
 
 //                Добавляем headers для запроса
-//                httpGet.setHeader("Content-type", "text/plain");
+                httpGet.setHeader("Content-type", "text/plain");
 //                httpGet.setHeader("Content-Type", "application/json;charset=utf-8");
 //                httpGet.setHeader("Content-Type", "text/xml;charset=utf-8");
 
@@ -46,19 +51,19 @@ public class AsyncGetRequest_T {
 //                pause(30); //Из логов
 
 //                Debug; наполнение объекта RequestAsync и запись в файл
-//                printLogsRequestHttp(logsPath, null, httpGet, requestRestController.getId());
+                printLogsRequestHttp(logsPath, null, httpGet, requestRestController.getId());
 
 //                Отправляем запрос
-//                HttpResponse httpResponse = sendGetRequest(httpGet, httpClient);
+                HttpResponse httpResponse = sendGetRequest(httpGet, httpClient);
 
 //                Debug; наполнение объекта ResponseHttp и запись в файл
-//                printLogsResponseHttp(logsPath, httpGet, httpResponse, requestRestController.getId());
+                printLogsResponseHttp(logsPath, httpGet, httpResponse, requestRestController.getId());
 
-//                stop();
-//            }
-//        }.start();
+                stop();
+            }
+        }.start();
 
 //        Debug; наполнение объекта ResponseRestController и запись в файл
-//        printLogsResponseRestController(logsPath, requestRestController, response, "false", null);
+        printLogsResponseRestController(logsPath, requestRestController, response, "false", null);
     }
 }
